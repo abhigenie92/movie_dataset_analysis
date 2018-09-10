@@ -23,7 +23,7 @@ def read_data(filename):
     return action, reward, x_ta
 
 
-def initialize_params(d,num_actions):
+def initialize_params(d, num_actions):
     '''
     Input: time-steps and number of dimensions
     Output: A_a and b_a
@@ -56,7 +56,7 @@ def linUCB(action, reward, x_ta, A, b_as, alphas):
         r_i = reward[i]
         action_i = action[i]
 
-        p_t_a = [0.]*10
+        p_t_a = [0.] * 10
         for a_i in range(10):
             inv_a = inv(A[a_i])
             theta = np.dot(inv_a,b_as[a_i])
@@ -70,7 +70,7 @@ def linUCB(action, reward, x_ta, A, b_as, alphas):
             # update
             if a_t + 1 == action_i:
 
-                x_ta_i= x_ta_i.reshape(100, 1)
+                x_ta_i = x_ta_i.reshape(100, 1)
                 A[a_t] +=  np.dot(x_ta_i, x_ta_i.T)
                 b_as[a_t] +=  r_i * x_ta_i.flatten()
 
@@ -83,8 +83,8 @@ def linUCB(action, reward, x_ta, A, b_as, alphas):
     c_t_num = np.cumsum(c_t_num)
     c_t_den = np.cumsum(c_t_den)
 
-    np.seterr(all='ignore')
-    c_t = np.nan_to_num(np.divide(c_t_num, c_t_den, dtype=float))
+    np.seterr(all = 'ignore')
+    c_t = np.nan_to_num(np.divide(c_t_num, c_t_den, dtype = float))
 
     return c_t
  
@@ -108,8 +108,8 @@ def plot_ct(c_t_1_t, c_t_sqrt, c_01sqrt, c_e_t, c_point01):
     plt.legend(handles = [p1, p2, p3, p4, p5])
 
 
-    plt.xlabel("Timestep (T)",fontsize = 14)
-    plt.ylabel("Cumulative take-rate replay C(T)",fontsize = 14)
+    plt.xlabel("Timestep (T)", fontsize = 14)
+    plt.ylabel("Cumulative take-rate replay C(T)", fontsize = 14)
     plt.tight_layout()
     plt.savefig("plots", dpi = 500)
     plt.close()
