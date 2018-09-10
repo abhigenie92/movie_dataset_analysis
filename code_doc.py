@@ -131,11 +131,11 @@ alphas_point01 = [0.1 for i in range(time_steps)]
 
 # run linUCB for different alphas
 A_init , b_as_init = initialize_params(d,num_actions)
-c_t_1_t = linUCB(action, reward, x_ta, A_init , b_as_init, alphas_1_t)
+c_t_1_t = linUCB(action, reward, x_ta, A_init, b_as_init, alphas_1_t)
 print("Final C(T) %s %f " %("alpha = 1/t", c_t_1_t[-1]))
 
 A_init , b_as_init = initialize_params(d,num_actions)
-c_t_sqrt = linUCB(action, reward, x_ta, A_init , b_as_init, alphas_sqrt)
+c_t_sqrt = linUCB(action, reward, x_ta, A_init, b_as_init, alphas_sqrt)
 print("Final C(T) %s %f " %("alpha = 1/sqrt(t)", c_t_sqrt[-1]))
 
 A_init , b_as_init = initialize_params(d,num_actions)
@@ -144,13 +144,13 @@ print("Final C(T) %s %f " %("alpha = e^(-t)", c_e_t[-1]))
 
 
 A_init , b_as_init = initialize_params(d,num_actions)
-c_point01 = linUCB(action, reward, x_ta, A_init , b_as_init, alphas_point01)
+c_point01 = linUCB(action, reward, x_ta, A_init, b_as_init, alphas_point01)
 print("Final C(T) %s %f " %("alpha = 0.1", c_point01[-1]))
 
 
 A_init , b_as_init = initialize_params(d,num_actions)
-c_01sqrt = linUCB(action, reward, x_ta, A_init , b_as_init, alphas_01sqrt)
+c_01sqrt = linUCB(action, reward, x_ta, A_init, b_as_init, alphas_01sqrt)
 print("Final C(T) %s %f " %("alpha = .1/sqrt(t)", c_01sqrt[-1]))
 
 # plot the result for C(T)
-plot_ct(c_t_1_t, c_t_sqrt,c_01sqrt, c_e_t, c_point01)
+plot_ct(c_t_1_t, c_t_sqrt, c_01sqrt, c_e_t, c_point01)
