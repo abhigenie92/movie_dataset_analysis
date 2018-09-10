@@ -59,9 +59,9 @@ def linUCB(action, reward, x_ta, A, b_as, alphas):
         p_t_a = [0.] * 10
         for a_i in range(10):
             inv_a = inv(A[a_i])
-            theta = np.dot(inv_a,b_as[a_i])
-            p_t_a[a_i] = np.dot(theta.T,x_ta_i) + alpha * \
-                        sqrt(np.dot(np.dot(x_ta_i.T,inv_a),x_ta_i))
+            theta = np.dot(inv_a, b_as[a_i])
+            p_t_a[a_i] = np.dot(theta.T, x_ta_i) + alpha * \
+                        sqrt(np.dot(np.dot(x_ta_i.T, inv_a), x_ta_i))
 
         # choose the best action
         a_t = np.argmax(p_t_a)
