@@ -56,7 +56,7 @@ def linUCB(action, reward, x_ta, A, b_as, alphas):
         r_i = reward[i]
         action_i = action[i]
 
-        p_t_a=[0.]*10
+        p_t_a = [0.]*10
         for a_i in range(10):
             inv_a = inv(A[a_i])
             theta = np.dot(inv_a,b_as[a_i])
@@ -66,13 +66,13 @@ def linUCB(action, reward, x_ta, A, b_as, alphas):
         # choose the best action
         a_t = np.argmax(p_t_a)
 
-        if i>=1:
+        if i >= 1:
             # update
-            if a_t+1 == action_i:
+            if a_t + 1 == action_i:
 
-                x_ta_i= x_ta_i.reshape(100,1)
-                A[a_t] +=  np.dot(x_ta_i,x_ta_i.T)
-                b_as[a_t] +=  r_i*x_ta_i.flatten()
+                x_ta_i= x_ta_i.reshape(100, 1)
+                A[a_t] +=  np.dot(x_ta_i, x_ta_i.T)
+                b_as[a_t] +=  r_i * x_ta_i.flatten()
 
                 c_t_num.append(r_i)
                 c_t_den.append(1.)
@@ -84,34 +84,34 @@ def linUCB(action, reward, x_ta, A, b_as, alphas):
     c_t_den = np.cumsum(c_t_den)
 
     np.seterr(all='ignore')
-    c_t = np.nan_to_num(np.divide(c_t_num,c_t_den, dtype=float))
+    c_t = np.nan_to_num(np.divide(c_t_num, c_t_den, dtype=float))
 
     return c_t
  
-def plot_ct(c_t_1_t, c_t_sqrt,c_01sqrt, c_e_t, c_point01):
+def plot_ct(c_t_1_t, c_t_sqrt, c_01sqrt, c_e_t, c_point01):
     '''
     Input: C(T) for alpha strategies
     Description: Plot the C(T) for each alpha strategy as time-steps progress.
                 The resulting plot is saved on disk
     '''
-    p1, = plt.plot(range(1,len(c_t_1_t)+1),c_t_1_t,'r', 
-        label="alpha = 1/t")
-    p2, = plt.plot(range(1,len(c_t_sqrt)+1),c_t_sqrt,'g', 
-        label="alpha = 1/sqrt(t)")
-    p3, = plt.plot(range(1,len(c_01sqrt)+1),c_01sqrt,'y', 
-        label="alpha = .1/sqrt(t)")
-    p4, = plt.plot(range(1,len(c_e_t)+1),c_e_t,'b', 
-        label="alpha = e^(-t)")
-    p5, = plt.plot(range(1,len(c_point01)+1),c_point01,'k', 
-        label="alpha = 0.1")
+    p1, = plt.plot(range(1, len(c_t_1_t) + 1), c_t_1_t, 'r', 
+        label = "alpha = 1/t")
+    p2, = plt.plot(range(1, len(c_t_sqrt) + 1), c_t_sqrt, 'g', 
+        label = "alpha = 1/sqrt(t)")
+    p3, = plt.plot(range(1, len(c_01sqrt) + 1), c_01sqrt, 'y', 
+        label = "alpha = .1/sqrt(t)")
+    p4, = plt.plot(range(1, len(c_e_t) + 1), c_e_t, 'b', 
+        label = "alpha = e^(-t)")
+    p5, = plt.plot(range(1, len(c_point01)+1), c_point01, 'k', 
+        label = "alpha = 0.1")
     
-    plt.legend(handles=[p1, p2, p3, p4, p5])
+    plt.legend(handles = [p1, p2, p3, p4, p5])
 
 
-    plt.xlabel("Timestep (T)",fontsize=14)
-    plt.ylabel("Cumulative take-rate replay C(T)",fontsize=14)
+    plt.xlabel("Timestep (T)",fontsize = 14)
+    plt.ylabel("Cumulative take-rate replay C(T)",fontsize = 14)
     plt.tight_layout()
-    plt.savefig("plots", dpi=500)
+    plt.savefig("plots", dpi = 500)
     plt.close()
 
 # read the dataset
@@ -123,9 +123,9 @@ time_steps = action.shape[0]
 num_actions = 10
 
 # use different alpha strategies
-alphas_sqrt = [1./sqrt(i+1.0) for i in range(time_steps)]
-alphas_01sqrt = [0.1/sqrt(i+1.0) for i in range(time_steps)]
-alphas_1_t = [1./(i+1.0) for i in range(time_steps)]
+alphas_sqrt = [1./sqrt(i + 1.0) for i in range(time_steps)]
+alphas_01sqrt = [0.1/sqrt(i + 1.0) for i in range(time_steps)]
+alphas_1_t = [1./(i + 1.0) for i in range(time_steps)]
 alphas_e_t = [math.exp(-i) for i in range(time_steps)]
 alphas_point01 = [0.1 for i in range(time_steps)]
 
