@@ -33,7 +33,7 @@ def initialize_params(d, num_actions):
     A = [np.identity(d) for i in range(num_actions)]
     b_as = [np.zeros(d) for i in range(num_actions)]
 
-    return A , b_as
+    return A, b_as
 
 def linUCB(action, reward, x_ta, A, b_as, alphas):
     ''''
